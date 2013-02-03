@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Car Deals</title>
+
+<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+
+<style type="text/css">
+
+.button{
+	
+	background-color: black;
+	color: white;
+		
+}
+
+</style>
+
+<script type="text/javascript">
+
+var json;
+var makes, models, years = "";
+var make, model,year;
+
+function show(){
+    
+    $.getJSON("kutafuta.json", function(data) {
+	    json=data;
+		//console.log(json);
+	    // data is a JavaScript object now. Handle it as such
+	    var itens_makes = [];
+	    var itens_models = [];
+	    var itens_years = [];
+	    	    	    
+	    for (var name in json){
+	    	if(itens_makes.length == 0){
+	    		itens_makes.push(json[name].Make);	    		
+	    	}else{
+	    		if(contains(itens_makes,json[name].Make)){
+	    			itens_makes.push(json[name].Make);
+	    		}
+	    	}
+	    	if(itens_models.length == 0){
+	    		itens_models.push(json[name].Model);	    		
+	    	}else{
+	    		if(contains(itens_models,json[name].Model)){
+	    			itens_models.push(json[name].Model);
+	    		}
+	    	}
+	    	if(itens_years.length == 0){
+	    		itens_years.push(json[name].Year);	    		
+	    	}else{
+	    		if(contains(itens_years,json[name].Year)){
+	    			itens_years.push(json[name].Year);
+	    		}
+	    	}
+	    }
+	    
+	    for(var key in itens_makes) {	    
+	    	
+	    	makes += "<option value=" + itens_makes[key]  + ">" + itens_makes[key] + "</option>";	    	
+	    }
+	    for(var key in itens_models) {	    
+	    	models += "<option value=" + itens_models[key]  + ">" + itens_models[key] + "</option>";	    	
+	    }
+	    for(var key in itens_years) {	    
+	    	years += "<option value=" + itens_years[key]  + ">" + itens_years[key] + "</option>";	    	
+	    }
+	    document.getElementById("makes").innerHTML = makes;
+	    document.getElementById("models").innerHTML = models;
+	    document.getElementById("years").innerHTML = years;
+	    
+	});	
+    
+    
+    function contains(a, obj) {    	
+    	
+        for (var i = 0; i < a.length; i++) {
+            if (a[i] === obj) {
+                return false;
+            }
+        }
+        return true;
+    }
+    	
+}
+
+function makesValue(){
+	make = document.getElementById("makes").value;
+	//console.log(make);
+}
+
+function modelsValue(){
+	model = document.getElementById("models").value;
+	//console.log(model);
+}
+
+function yearsValue(){
+	year = document.getElementById("years").value;
+	//console.log(year);
+}
+
+function kutafuta(){
+	//console.log('kutafuta');
+		
+	if(make==undefined){
+		make = document.getElementById("makes").value;
+	}
+	if(model==undefined){
+		model=document.getElementById("models").value;
+	}
+	if(year==undefined){
+		year=document.getElementById("years").value;
+	}
+	
+	var obj = {
+		
+		"Make": make,
+		"Model": model,
+		"Year": year    			
+	}
+	
+	render(obj);
+	//console.log(obj);
+	
+}
+
+</script>
+
+</head>
+<body onload="show();">
+
+<div>
+<h3> Choose your Car</h3>
+Make: <select name="makes" id="makes" onchange="makesValue()"></select><br>
+Model: <select name="models" id="models" onchange="modelsValue()"></select><br>
+Year: <select name="years" id="years" onchange="yearsValue()"></select><br>
+<input type="button" name="kutafuta" class="button" value="KutaFuta!" onclick="kutafuta()"/>
+</div>
+
+</body>
+</html>

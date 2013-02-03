@@ -1,0 +1,34 @@
+body {
+	background: url('../kutafuta.gif') top right no-repeat;
+}
+
+.col2 {
+	width: 49%;
+	float: left;
+}
+
+.button{
+	background-color: black;
+	color: white;
+}
+
+.matches {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.offering {
+	border-left: 1px solid black;
+}
+
+#profit {
+	clear: both;
+	text-align: center;
+	background-color: black;
+}
+
+#profit h1 {
+	color: gold;
+}
